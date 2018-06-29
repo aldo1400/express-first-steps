@@ -9,7 +9,14 @@ const express=require('express');
 const app=express();
 const morgan=require('morgan');
 
+
+// require routes
+
+const routes=require('./routes');
+const routesApi=require('./routes-api');
 // setting
+
+
 
 app.set('appName','Mi primer server');
 app.set('views',__dirname + '/views');
@@ -28,13 +35,8 @@ app.use(morgan('dev'));
 // });
 //routes
 
-app.get('/',(req,res)=>{
-    res.render('index.ejs');
-});
-
-app.get('/login',(req,res)=>{
-    res.render('login.ejs');
-});
+app.use(routes);
+app.use('/api',routesApi);
 
 app.get('*',(req,res)=>{
     res.end('archivo no encontrado');
